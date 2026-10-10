@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/PaymentGateway.API/PaymentGateway.API.csproj" />
+  <Project Path="src/PaymentGateway.Domain/PaymentGateway.Domain.csproj" />
+  <Project Path="src/PaymentGateway.Infrastructure/PaymentGateway.Infrastructure.csproj" />
+</Solution>
