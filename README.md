@@ -17,3 +17,12 @@ decimal is morea ccurate for calculations. double produce rounding issues.
 sattic Create allow for better control and validation before creating the object itself
 ### What's the difference between this "rich" model and an "anemic" one with public setters, and which bugs does yours prevent?
 rich model is handling your own setting logic. what we prevent is that we can validate the data before setting it. anemic model is just a data structure with no logic.
+
+### Day 3
+
+### What is __EFMigrationsHistory for, and what happens if you run Update-Database twice?
+migrationhistory is the table that keep track of all the migrations that occured. when u run same migration twice, it will not apply as it will check the history first
+### Why use Fluent API configuration instead of [MaxLength] attributes on Payment? (Think about Day 1.)
+in adding attributes in payment would go against the clean architecture principle . domain should not be aware of the database
+### Why store Status as a string instead of the default int?
+to keep the column readable and avoid confusion with the enum values. if we store as int, it will be hard to know what the value means without looking at the enum definition.
