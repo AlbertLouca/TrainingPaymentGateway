@@ -1,10 +1,4 @@
-﻿using PaymentGateway.Domain.Generic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PaymentGateway.Domain.Common;
 
 namespace PaymentGateway.Domain.Payments
 {
@@ -12,11 +6,11 @@ namespace PaymentGateway.Domain.Payments
     {
 
         public Guid Id { get;private set; }
-        public string MerchantId { get;private set; }
+        public string MerchantId { get;private set; } = null!;
         public decimal Amount { get; private set; }
-        public string Currency { get; private set; }
+        public string Currency { get; private set; } = null!;
         public PaymentStatus Status { get; private set; }
-        public DateTime CreatedAt { get; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; private set; } 
 
         private Payment() { }
 
@@ -24,11 +18,15 @@ namespace PaymentGateway.Domain.Payments
         {
             if (string.IsNullOrWhiteSpace(merchantId))
                 throw new DomainException("MerchantId cannot be null or empty.");
-            if (amount < 0)
+            if (amount <= 0)
             {
-                throw new DomainException("Amount cannot be negative.");
+                throw new DomainException("Amount cannot be zero or negative.");
             }
-            if (currency.Length != 3)
+            if(String.IsNullOrEmpty(currency))
+            {
+                throw new DomainException("Currency cannot be null or empty.");
+            }
+            if (currency.Length != 3 || !currency.All(char.IsLetter) )
             {
                 throw new DomainException("Currency must be a 3-letter ISO code.");
             }
@@ -37,39 +35,37 @@ namespace PaymentGateway.Domain.Payments
                 Id = Guid.NewGuid(),
                 MerchantId = merchantId,
                 Amount = amount,
-                Currency = currency.ToUpper(),
-                Status = PaymentStatus.Pending
+                Currency = currency.ToUpperInvariant(),
+                Status = PaymentStatus.Pending,
+                CreatedAt = DateTime.UtcNow
             };
 
         }
 
 
-        public bool Capture()
+        public void Capture()
         {
             if (Status != PaymentStatus.Pending)
             {
                 throw new DomainException("Only pending payments can be captured.");
             }
             Status = PaymentStatus.Captured;
-            return true;
         }
-        public bool Refund()
+        public void Refund()
         {
             if (Status != PaymentStatus.Captured)
             {
                 throw new DomainException("Only captured payments can be refunded.");
             }
             Status = PaymentStatus.Refunded;
-            return true;
         }
-        public bool Fail()
+        public void Fail()
         {
             if (Status != PaymentStatus.Pending)
             {
                 throw new DomainException("Only pending payments can be failed.");
             }
             Status = PaymentStatus.Failed;
-            return true;
         }
 
     }
