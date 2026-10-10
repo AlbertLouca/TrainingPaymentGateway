@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PaymentGateway.Domain.Common;
 using PaymentGateway.Domain.Payments;
 using PaymentGateway.Infrastructure.Persistence;
 using PaymentGateway.Infrastructure.Repositories;

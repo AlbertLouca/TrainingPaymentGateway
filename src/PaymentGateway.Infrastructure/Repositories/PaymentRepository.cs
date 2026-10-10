@@ -7,13 +7,13 @@ namespace PaymentGateway.Infrastructure.Repositories
 {
     internal class PaymentRepository : IPaymentRepository
     {
-        public PaymentDbContext _context;
+        private PaymentDbContext _context;
         public PaymentRepository(PaymentDbContext context) {
             _context = context;
         }
        public Task<Payment?> GetPaymentAsync(Guid paymentId, CancellationToken ct = default)
         {
-         Task<Payment?> extractedPayment=   _context.Set<Payment>().AsNoTracking().FirstOrDefaultAsync(p => p.Id == paymentId, ct);
+         Task<Payment?> extractedPayment=   _context.Set<Payment>().FirstOrDefaultAsync(p => p.Id == paymentId, ct);
          return extractedPayment;
         }
       public  void AddPayment(Payment payment)
