@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PaymentGateway.API.Contracts;
 using PaymentGateway.Domain.Common;
 using PaymentGateway.Domain.Payments;
@@ -7,12 +6,12 @@ using PaymentGateway.Domain.Payments;
 namespace PaymentGateway.API.Controllers
 {
     [ApiController]
-    [Route("Payments")]
-    public class PaymentController : ControllerBase
+    [Route("payments")]
+    public class PaymentsController : ControllerBase
     {
         private readonly IPaymentRepository _paymentRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public PaymentController(IPaymentRepository paymentRepository, IUnitOfWork unitOfWork)
+        public PaymentsController(IPaymentRepository paymentRepository, IUnitOfWork unitOfWork)
         {
             _paymentRepository = paymentRepository;
             _unitOfWork = unitOfWork;
