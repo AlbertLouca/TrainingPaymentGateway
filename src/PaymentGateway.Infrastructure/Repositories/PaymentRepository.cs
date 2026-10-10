@@ -7,7 +7,7 @@ namespace PaymentGateway.Infrastructure.Repositories
 {
     internal class PaymentRepository : IPaymentRepository
     {
-        private PaymentDbContext _context;
+        private readonly PaymentDbContext _context;
         public PaymentRepository(PaymentDbContext context) {
             _context = context;
         }

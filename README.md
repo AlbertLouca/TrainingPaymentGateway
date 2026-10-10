@@ -37,3 +37,16 @@ an argument against is that it adds complexity. But in my opinion , the flexibil
 update is handled by the dbcontext , calling the savechanges should update the entity
 ### Why AddScoped and not AddSingleton for these? What would go wrong with singleton?
 singelon will make the repository saved in memory for all requests and will cause concurency issues, addscoped here will create a new instance for each request avoiding those issues. transcient would work but it would make performance worse as it will create a new instance for each injection.
+
+
+### Day 5
+
+### Why return PaymentResponse instead of the Payment entity directly? Name two concrete problems.
+We can set exactly what we want to return.
+Also we dont need to leak all the payment data as a response
+
+### What does CreatedAtAction add to the response besides the 201 status? (Look at the response headers in Swagger.)
+it adds the endpoint to get the details of that newly created payment
+
+### Why 409 for capturing twice, and not 400?
+409 is conflict cause the payment is there, but this capture processing can only be done once thus resulting in a conflict
