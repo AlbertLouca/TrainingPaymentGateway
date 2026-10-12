@@ -50,3 +50,13 @@ it adds the endpoint to get the details of that newly created payment
 
 ### Why 409 for capturing twice, and not 400?
 409 is conflict cause the payment is there, but this capture processing can only be done once thus resulting in a conflict
+
+
+### Day 6
+
+### In the capture UPDATE statement, which columns did EF set, and why only those?
+only the update column as this is the only column that changed in the tracking
+### Does [ProducesResponseType] change what the endpoint actually returns? What is it for?
+no it doesnt, it just clarifies the possible response types
+### Why have a separate GetByIdForReadAsync instead of putting AsNoTracking on the one method?
+as no tracking make the instance not tracked, increasing the performance of the app. but putting asnotracking on every get will remove the possibility of saving the context.

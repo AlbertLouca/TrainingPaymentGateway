@@ -1,6 +1,21 @@
-@PaymentGateway.API_HostAddress = http://localhost:5182
+@host = https://localhost:7228
 
-GET {{PaymentGateway.API_HostAddress}}/weatherforecast/
-Accept: application/json
+### Create a payment
+# @name create
+POST {{host}}/payments
+Content-Type: application/json
 
-###
+{
+  "merchantId": "merchant-1",
+  "amount": 150.500,
+  "currency": "kwd"
+}
+
+### Get it
+GET {{host}}/payments/{{create.response.body.$.id}}
+
+### Capture it
+POST {{host}}/payments/{{create.response.body.$.id}}/capture
+
+###Refund it
+POST {{host}}/payments/{{create.response.body.$.id}}/refund

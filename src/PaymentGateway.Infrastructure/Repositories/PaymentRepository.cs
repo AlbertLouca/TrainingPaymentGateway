@@ -11,10 +11,14 @@ namespace PaymentGateway.Infrastructure.Repositories
         public PaymentRepository(PaymentDbContext context) {
             _context = context;
         }
-       public Task<Payment?> GetPaymentAsync(Guid paymentId, CancellationToken ct = default)
+       public Task<Payment?> GetByIdAsync(Guid paymentId, CancellationToken ct = default)
         {
-         Task<Payment?> extractedPayment=   _context.Set<Payment>().FirstOrDefaultAsync(p => p.Id == paymentId, ct);
+         Task<Payment?> extractedPayment=_context.Set<Payment>().FirstOrDefaultAsync(p => p.Id == paymentId, ct);
          return extractedPayment;
+        }
+        public Task<Payment?> GetByIdForReadAsync(Guid paymentId, CancellationToken ct = default)
+        {
+            return _context.Set<Payment>().AsNoTracking().FirstOrDefaultAsync(p => p.Id == paymentId, ct);
         }
       public  void AddPayment(Payment payment)
         {
