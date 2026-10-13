@@ -13,8 +13,7 @@ namespace PaymentGateway.Infrastructure.Repositories
         }
        public Task<Payment?> GetByIdAsync(Guid paymentId, CancellationToken ct = default)
         {
-         Task<Payment?> extractedPayment=_context.Set<Payment>().FirstOrDefaultAsync(p => p.Id == paymentId, ct);
-         return extractedPayment;
+            return _context.Set<Payment>().FirstOrDefaultAsync(p => p.Id == paymentId, ct);
         }
         public Task<Payment?> GetByIdForReadAsync(Guid paymentId, CancellationToken ct = default)
         {

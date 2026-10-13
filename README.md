@@ -46,7 +46,7 @@ We can set exactly what we want to return.
 Also we dont need to leak all the payment data as a response
 
 ### What does CreatedAtAction add to the response besides the 201 status? (Look at the response headers in Swagger.)
-it adds the endpoint to get the details of that newly created payment
+it adds the endpoint in the location header to get the details of that newly created payment 
 
 ### Why 409 for capturing twice, and not 400?
 409 is conflict cause the payment is there, but this capture processing can only be done once thus resulting in a conflict

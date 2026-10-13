@@ -17,8 +17,8 @@ namespace PaymentGateway.API.Controllers
             _unitOfWork = unitOfWork;
         }
         [HttpPost]
-        [ProducesResponseType(typeof(PaymentResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(PaymentResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create( CreatePaymentRequest request, CancellationToken ct)
         {
             Payment payment;
