@@ -1,6 +1,15 @@
 @host = https://localhost:7228
 
 ### Create a payment
+
+### @name failure-create
+POST {{host}}/payments
+Content-Type: application/json
+{
+  "merchantId": "merchant-1",
+  "amount": 150.500
+}
+###
 # @name create
 POST {{host}}/payments
 Content-Type: application/json
@@ -11,11 +20,15 @@ Content-Type: application/json
   "currency": "kwd"
 }
 
+### Get missingit
+GET {{host}}/payments/9a52308e-0de7-4406-bd1f-2871857b2cbs
 ### Get it
 GET {{host}}/payments/{{create.response.body.$.id}}
 
 ### Capture it
 POST {{host}}/payments/{{create.response.body.$.id}}/capture
 
+### Capture it second time failure
+POST {{host}}/payments/{{create.response.body.$.id}}/capture
 ###Refund it
 POST {{host}}/payments/{{create.response.body.$.id}}/refund
