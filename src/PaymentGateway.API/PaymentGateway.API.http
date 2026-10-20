@@ -35,3 +35,22 @@ POST {{host}}/payments/{{create.response.body.$.id}}/capture
 POST {{host}}/payments/{{create.response.body.$.id}}/refund
 ### Refund already refunded payment failure
 POST {{host}}/payments/{{create.response.body.$.id}}/refund
+
+### Dev Providers successful charge
+POST {{host}}/dev/providers/charge
+Content-Type: application/json
+
+{
+  "PaymentId": "{{create.response.body.$.id}}",
+  "amount": 150.00,
+  "currency": "kwd"
+}
+### Dev Providers failed charge
+POST {{host}}/dev/providers/charge
+Content-Type: application/json
+
+{
+  "PaymentId": "{{create.response.body.$.id}}",
+  "amount": 150.13,
+  "currency": "kwd"
+}

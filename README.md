@@ -71,3 +71,12 @@ currently, if two requests read the same payment status at the same time, they w
 ### When would AsNoTracking cause a bug, and when is it the right choice?
 As no tracking will cause a bug when we will need to update the entity after reading it as its not tracked and savechanges will not do anything. its the right choice if we only want to read it without updating it, as it will improve performance and reduce memory usage.
 
+
+### Day 8 
+
+### Why is IPaymentProvider in Domain and NileTelcoProvider in Infrastructure? (One line; you know this one now.)
+the provider itslef is an infrastructure concern the domain should only see an interface. this also make the testing easier for mocking.
+### Why deterministic failures instead of Random?
+to make the tests more predictable and reliable, allowing for consistent results and easier debugging.
+### Why is singleton fine for NileTelcoProvider but was wrong for PaymentRepository? What would make it wrong for the provider too? (Hint: Day 7, captive dependency.)
+its ok for the provider to be singleton as it has no state if it had state singleton will cause data corruption.
