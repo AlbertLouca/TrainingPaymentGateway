@@ -5,6 +5,7 @@
 ### @name failure-create
 POST {{host}}/payments
 Content-Type: application/json
+
 {
   "merchantId": "merchant-1",
   "amount": 150.500
@@ -21,7 +22,7 @@ Content-Type: application/json
 }
 
 ### Get missingit
-GET {{host}}/payments/9a52308e-0de7-4406-bd1f-2871857b2cbs
+GET {{host}}/payments/00000000-0000-0000-0000-000000000000
 ### Get it
 GET {{host}}/payments/{{create.response.body.$.id}}
 
@@ -31,4 +32,6 @@ POST {{host}}/payments/{{create.response.body.$.id}}/capture
 ### Capture it second time failure
 POST {{host}}/payments/{{create.response.body.$.id}}/capture
 ###Refund it
+POST {{host}}/payments/{{create.response.body.$.id}}/refund
+### Refund already refunded payment failure
 POST {{host}}/payments/{{create.response.body.$.id}}/refund

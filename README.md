@@ -60,3 +60,14 @@ only the update column as this is the only column that changed in the tracking
 no it doesnt, it just clarifies the possible response types
 ### Why have a separate GetByIdForReadAsync instead of putting AsNoTracking on the one method?
 as no tracking make the instance not tracked, increasing the performance of the app. but putting asnotracking on every get will remove the possibility of saving the context.
+
+
+### Day 7  wrap-up
+
+### Walk me through what happens, layer by layer, when POST payments/id/capture is called.
+validation on the guid in controller, infrastrucure layer will extract payment by id. domain will validate on the status if its ok, domain will update the status and infra will save the changes. controller will return the response with the status code
+### Two requests capture the same payment at the exact same moment. What happens in your current code?
+currently, if two requests read the same payment status at the same time, they will both perform the update and save the changes, resulting in a race condition. The last one to save will overwrite the first one, leading to inconsistent state.
+### When would AsNoTracking cause a bug, and when is it the right choice?
+As no tracking will cause a bug when we will need to update the entity after reading it as its not tracked and savechanges will not do anything. its the right choice if we only want to read it without updating it, as it will improve performance and reduce memory usage.
+
