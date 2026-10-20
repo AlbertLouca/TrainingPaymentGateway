@@ -1,24 +1,8 @@
 ﻿namespace PaymentGateway.Domain.Providers;
 
-public record ProviderResult
+public record ProviderResult(bool IsSuccess, string? ProviderReference, string? FailureReason)
 {
 
-    bool IsSuccess;
-    string? ProviderReference;
-    string? FailureReason;
-
-
-    public static ProviderResult Succeeded(string reference) => new()
-    {
-        IsSuccess = true,
-        ProviderReference = reference,
-        FailureReason = null
-    };
-
-    public static ProviderResult Failed(string reason) => new()
-    {
-        IsSuccess = false,
-        ProviderReference = null,
-        FailureReason = reason
-    };
+    public static ProviderResult Succeeded(string reference) => new(true, reference, null);
+    public static ProviderResult Failed(string reason) => new(false, null, reason);
 }

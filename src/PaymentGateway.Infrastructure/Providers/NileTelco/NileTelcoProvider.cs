@@ -1,22 +1,20 @@
 using PaymentGateway.Domain.Providers;
-namespace PaymentGateway.Infrastructure.Providers.NileTelco
+namespace PaymentGateway.Infrastructure.Providers.NileTelco;
+
+
+internal class NileTelcoProvider : IPaymentProvider
 {
 
-    public class NileTelcoProvider : IPaymentProvider
+    public string Name => "NileTelco";
+
+    public async Task<ProviderResult> ChargeAsync(ProviderChargeRequest request, CancellationToken ct = default)
     {
-
-        public string Name => "NileTelco";
-
-        public async Task<ProviderResult> ChargeAsync(ProviderChargeRequest request, CancellationToken ct = default)
+        await Task.Delay(300, ct);
+        if(request.Amount % 1 == 0.13m)
         {
-            await Task.Delay(300, ct);
-            if(request.Amount % 1 == 0.13m)
-            {
-                return ProviderResult.Failed("Insufficient balance");
-            }
-
-            return ProviderResult.Succeeded("NT-" + Guid.NewGuid().ToString("N")[..10]);
+            return ProviderResult.Failed("Insufficient balance");
         }
-    }
 
+        return ProviderResult.Succeeded("NT-" + Guid.NewGuid().ToString("N")[..10]);
+    }
 }

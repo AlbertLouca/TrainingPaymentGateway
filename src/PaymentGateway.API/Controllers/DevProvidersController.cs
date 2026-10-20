@@ -20,9 +20,9 @@ namespace PaymentGateway.API.Controllers
 
         [HttpPost("charge")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult Charge(ProviderChargeRequest request)
+        public async Task<IActionResult> Charge(ProviderChargeRequest request,CancellationToken ct)
         {
-            ProviderResult result = _paymentProvider.ChargeAsync(request).Result;
+            ProviderResult result = await _paymentProvider.ChargeAsync(request,ct);
             return Ok(result);
         }
     }
